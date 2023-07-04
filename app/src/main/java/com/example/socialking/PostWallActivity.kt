@@ -32,8 +32,6 @@ import com.example.socialking.ui.theme.SocialKingTheme
 import com.example.socialking.viewmodels.MainViewModel
 
 
-
-
 class PostWallActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,29 +40,30 @@ class PostWallActivity : ComponentActivity() {
             SocialKingTheme {
                 //val personRepository = PersonRepository()
                 //val getAllData = personRepository.getAllData()
-                
-                
-                   Column{
-                       TopAppBar (
-                           title ={
-                               Text(text="User Posts")
-                           },
-                       )
-                       SetData(viewModel)
-                       }
-                   }
+
+
+                Column {
+                    TopAppBar(
+                        title = {
+                            Text(text = "User Posts")
+                        },
+                    )
+                    SetData(viewModel)
+                }
             }
         }
+    }
+
     @Composable
     fun SetData(viewModel: MainViewModel) {
-        when (val result = viewModel.response.value){
+        when (val result = viewModel.response.value) {
             is DataState.Loading -> {
-               Box(
-                   modifier = Modifier.fillMaxSize(),
-                   contentAlignment = Alignment.Center
-               ){
-                   CircularProgressIndicator()
-               }
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
 
             }
             is DataState.Success -> {
@@ -75,10 +74,10 @@ class PostWallActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
-                ){
+                ) {
                     Text(
-                        text=result.message,
-                        fontSize= MaterialTheme.typography.h5.fontSize,
+                        text = result.message,
+                        fontSize = MaterialTheme.typography.h5.fontSize,
                     )
                 }
             }
@@ -87,34 +86,35 @@ class PostWallActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
-                ){
+                ) {
                     Text(
-                        text="Error Fetching data",
-                        fontSize= MaterialTheme.typography.h5.fontSize,
+                        text = "Error Fetching data",
+                        fontSize = MaterialTheme.typography.h5.fontSize,
                     )
                 }
             }
         }
-        
+
     }
 
-     @Composable
-    fun ShowLazyList(posts: MutableList<PostClass> ) {
-         val intent = Intent(this,SelectedPostActivity::class.java)
-         val selectedPostContent: String = ""
-         val selectedPostTitle: String = ""
-         val selectedPostCategory: String = ""
-
-        LazyColumn{
-            items(posts){ post ->
-                CardItem(post=post){
-                    intent.putExtra("content",post.content)
-                    intent.putExtra("name",post.byName)
-                    intent.putExtra("email",post.byEmail)
-                    intent.putExtra("title",post.title)
-                    intent.putExtra("category",post.category)
-                    intent.putExtra("id",post.postid)
-                    startActivity(intent)
+    @Composable
+    fun ShowLazyList(posts: MutableList<PostClass>) {
+        val intent = Intent(this, SelectedPostActivity::class.java)
+        val selectedPostContent: String = ""
+        val selectedPostTitle: String = ""
+        val selectedPostCategory: String = ""
+        LazyColumn {
+            items(posts) { post ->
+                if (post.isVisible == true) {
+                    CardItem(post = post) {
+                        intent.putExtra("content", post.content)
+                        intent.putExtra("name", post.byName)
+                        intent.putExtra("email", post.byEmail)
+                        intent.putExtra("title", post.title)
+                        intent.putExtra("category", post.category)
+                        intent.putExtra("id", post.postid)
+                        startActivity(intent)
+                    }
                 }
             }
         }
@@ -123,60 +123,54 @@ class PostWallActivity : ComponentActivity() {
 
 
     @Composable
-    fun CardItem(post: PostClass, onClick: (msg: String)-> Unit) {
+    fun CardItem(post: PostClass, onClick: (msg: String) -> Unit) {
         val msg = "here is click"
         Card(
-            modifier = Modifier.fillMaxWidth()
-                .padding(bottom = 16.dp).clickable { onClick(msg) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+                .clickable { onClick(msg) },
             border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
         )
         {
-            Column(modifier = Modifier.padding(16.dp)){
-                Row(modifier = Modifier.fillMaxWidth() ){
-                    Text(text = post.byName.toString(),modifier = Modifier.weight(1f))
-                    Text(text=post.category.toString())
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Text(text = post.byName.toString(), modifier = Modifier.weight(1f))
+                    Text(text = post.category.toString())
                 }
                 Text(
-                    text=post.title.toString(),
-                    modifier=Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    text = post.title.toString(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     style = MaterialTheme.typography.h6
                 )
-                Text(text = post.content.toString(),
-                modifier = Modifier.fillMaxWidth())
+                Text(
+                    text = post.content.toString(),
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
+        }
     }
-}
 
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        SocialKingTheme {
+            val personRepository = PersonRepository()
+            val getAllData = personRepository.getAllData()
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-@Composable
-fun CustomText(text : String){
-    Text(
-        text = text,
+            LazyColumn(
 
-    )
-}
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                itemsIndexed(items = getAllData) { index, person ->
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SocialKingTheme {
-        val personRepository = PersonRepository()
-        val getAllData = personRepository.getAllData()
-
-        LazyColumn(
-
-            verticalArrangement = Arrangement.SpaceBetween
-        ){
-            itemsIndexed(items = getAllData){index , person ->
-
-                CustomItem(person = person)
+                    CustomItem(person = person)
+                }
             }
         }
     }
-}}
+}
