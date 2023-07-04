@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.socialking.databinding.ActivityAddPostBinding
-import com.example.socialking.databinding.ActivityRegisterBinding
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -29,14 +28,14 @@ class AddPostActivity : AppCompatActivity() {
         val byEmail= intent.getStringExtra("email").toString()
         val byName= intent.getStringExtra("name").toString()
 
-        val isVisible: Boolean = true
+        val visible: Boolean = true
 
         addPostBinding.publishPostButton.setOnClickListener {
             val title = addPostBinding.editTextTitle.text.toString()
             val category = addPostBinding.editTextCategory.text.toString()
             val content = addPostBinding.editTextContent.text.toString()
 
-            publishPost(byEmail,byName,title,category,content,isVisible)
+            publishPost(byEmail,byName,title,category,content,visible)
 
             }
 
@@ -45,11 +44,11 @@ class AddPostActivity : AppCompatActivity() {
 
 
     }
-        fun publishPost(byEmail: String, byName: String,title: String,
-                        category: String,content: String,isVisible: Boolean){
+        fun publishPost(byEmail: String, byName: String, title: String,
+                        category: String, content: String, visible: Boolean){
             addPostBinding.publishPostButton.isClickable = false
             val postid = Counter.counter.toString()
-            val newPost = PostClass(byEmail,byName,title,category,content,isVisible,postid)
+            val newPost = PostClass(byEmail,byName,title,category,content,visible,postid)
             val db = Firebase.database
             val dbRef = db.getReference("posts")
             dbRef.child(postid.toString()).setValue(newPost).addOnCompleteListener { task ->
