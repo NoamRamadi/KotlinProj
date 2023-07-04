@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SocialKing</string>
+    <string name="title_activity_logged_in_compose">LoggedInComposeActivity</string>
+</resources>
