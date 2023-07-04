@@ -1,7 +1,9 @@
 package com.example.socialking
 
 import PostClass
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -93,19 +95,24 @@ class PostWallActivity : ComponentActivity() {
 
      @Composable
     fun ShowLazyList(posts: MutableList<PostClass> ) {
+         val intent = Intent(this,SelectedPostActivity::class.java)
         LazyColumn{
             items(posts){ post ->
-                CardItem(post)
+                CardItem(post=post){
+
+                    startActivity(intent)
+                }
             }
         }
 
     }
 
     @Composable
-    fun CardItem(post: PostClass) {
+    fun CardItem(post: PostClass, onClick: (msg: String)-> Unit) {
+        val msg = "here is click"
         Card(
             modifier = Modifier.fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .padding(bottom = 16.dp).clickable { onClick(msg) },
             elevation = 4.dp
         )
         {

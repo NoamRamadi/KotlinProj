@@ -15,6 +15,13 @@
         android:theme="@style/Theme.SocialKing"
         tools:targetApi="31">
         <activity
+            android:name=".SelectedPostActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PostWallActivity"
             android:exported="false"
             android:label="@string/title_activity_logged_in_compose"
@@ -23,7 +30,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".AddPostActivity"
             android:exported="false">
