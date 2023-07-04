@@ -39,15 +39,9 @@ class SelectedPostActivity : AppCompatActivity() {
         selectedPostBinding.editPostButton.setOnClickListener {
             //selectedPostBinding.editPostButton.isClickable = false
 
-
-
             val newTitle = selectedPostBinding.editPostTitle.getText().toString()
             val newCategory = selectedPostBinding.editPostCategory.getText().toString()
             val newContent = selectedPostBinding.editPostContent.getText().toString()
-
-
-
-
 
             val editedPost = PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
             dbRef.child(postid.toString()).setValue(editedPost).addOnCompleteListener { task ->
@@ -62,6 +56,22 @@ class SelectedPostActivity : AppCompatActivity() {
                 }
 
             }
+        }
+        selectedPostBinding.deletePostButton.setOnClickListener {
+            val deletedPost = PostClass(byEmail, byName, title, category, content, false, postid)
+            dbRef.child(postid.toString()).setValue(deletedPost).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(applicationContext,"Your post has been Deleted",Toast.LENGTH_SHORT).show()
+                    finish()
+                    selectedPostBinding.editPostButton.isClickable = true
+                } else {
+                    Toast.makeText(
+                        applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
+
         }
 
     }
