@@ -48,10 +48,11 @@ class AddPostActivity : AppCompatActivity() {
         fun publishPost(byEmail: String, byName: String,title: String,
                         category: String,content: String,isVisible: Boolean){
             addPostBinding.publishPostButton.isClickable = false
-            val newPost = PostClass(byEmail,byName,title,category,content,isVisible)
+            val postid = Counter.counter.toString()
+            val newPost = PostClass(byEmail,byName,title,category,content,isVisible,postid)
             val db = Firebase.database
             val dbRef = db.getReference("posts")
-            dbRef.child(Counter.counter.toString()).setValue(newPost).addOnCompleteListener { task ->
+            dbRef.child(postid.toString()).setValue(newPost).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(applicationContext,"Your post has been published",Toast.LENGTH_SHORT).show()
                     Counter.count()

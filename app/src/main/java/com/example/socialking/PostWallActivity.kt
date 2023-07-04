@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,10 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.socialking.databinding.ActivityRegisterBinding
 import com.example.socialking.repository.PersonRepository
 
 import com.example.socialking.ui.theme.SocialKingTheme
 import com.example.socialking.viewmodels.MainViewModel
+
+
+
 
 class PostWallActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
@@ -96,10 +101,19 @@ class PostWallActivity : ComponentActivity() {
      @Composable
     fun ShowLazyList(posts: MutableList<PostClass> ) {
          val intent = Intent(this,SelectedPostActivity::class.java)
+         val selectedPostContent: String = ""
+         val selectedPostTitle: String = ""
+         val selectedPostCategory: String = ""
+
         LazyColumn{
             items(posts){ post ->
                 CardItem(post=post){
-
+                    intent.putExtra("content",post.content)
+                    intent.putExtra("name",post.byName)
+                    intent.putExtra("email",post.byEmail)
+                    intent.putExtra("title",post.title)
+                    intent.putExtra("category",post.category)
+                    intent.putExtra("id",post.postid)
                     startActivity(intent)
                 }
             }
@@ -107,12 +121,14 @@ class PostWallActivity : ComponentActivity() {
 
     }
 
+
     @Composable
     fun CardItem(post: PostClass, onClick: (msg: String)-> Unit) {
         val msg = "here is click"
         Card(
             modifier = Modifier.fillMaxWidth()
                 .padding(bottom = 16.dp).clickable { onClick(msg) },
+            border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
         )
         {
