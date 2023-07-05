@@ -68,6 +68,12 @@ class LoggedInActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        loggedInBinding.searchButtonLoggedIn.setOnClickListener{
+
+            val intent = Intent(this@LoggedInActivity,SearchActivity::class.java)
+            startActivity(intent)
+
+        }
 
 
 

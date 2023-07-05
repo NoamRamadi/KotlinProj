@@ -1,45 +1,68 @@
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.PrintWriter
 import java.net.ServerSocket
 import java.net.Socket
 
 class Server(private val port: Int) {
 
     private lateinit var serverSocket: ServerSocket
-    private var clientSocket: Socket? = null
     private var isRunning: Boolean = false
+    private val clients: MutableList<ClientHandler> = mutableListOf()
 
-    fun start(messageHandler: (String) -> Unit) {
+    fun start() {
         serverSocket = ServerSocket(port)
         isRunning = true
+        println("Server started on port $port")
 
         while (isRunning) {
-            clientSocket = serverSocket.accept()
-            println("Client connected: ${clientSocket?.inetAddress?.hostAddress}")
+            val clientSocket = serverSocket.accept()
+            println("Client connected: ${clientSocket.inetAddress.hostAddress}")
 
-            val reader = clientSocket?.getInputStream()?.bufferedReader()
-            reader?.use {
-                var message: String?
-                while (isRunning) {
-                    message = reader.readLine()
-                    if (message != null) {
-                        messageHandler.invoke(message)
-                    }
-                }
-            }
-        }
-    }
-
-    fun sendMessage(message: String) {
-        val writer = clientSocket?.getOutputStream()?.bufferedWriter()
-        writer?.use {
-            it.write(message)
-            it.newLine()
-            it.flush()
+            val clientHandler = ClientHandler(clientSocket)
+            clients.add(clientHandler)
+            clientHandler.start()
         }
     }
 
     fun stop() {
         isRunning = false
-        clientSocket?.close()
         serverSocket.close()
     }
+
+    fun broadcastMessage(message: String, sender: ClientHandler) {
+        for (client in clients) {
+            if (client != sender) {
+                client.sendMessage(message)
+            }
+        }
+    }
+
+    inner class ClientHandler(private val clientSocket: Socket) : Thread() {
+        private lateinit var reader: BufferedReader
+        private lateinit var writer: PrintWriter
+
+        override fun run() {
+            reader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
+            writer = PrintWriter(clientSocket.getOutputStream(), true)
+
+            var message: String?
+            while (true) {
+                message = reader.readLine()
+                if (message != null) {
+                    println("Received message from client: $message")
+                    broadcastMessage(message, this)
+                }
+            }
+        }
+
+        fun sendMessage(message: String) {
+            writer.println(message)
+        }
+    }
+}
+
+fun main() {
+    val server = Server(3000)
+    server.start()
 }
