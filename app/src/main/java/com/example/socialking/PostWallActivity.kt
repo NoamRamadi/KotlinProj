@@ -174,21 +174,4 @@ class PostWallActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SocialKingTheme {
-        val personRepository = PersonRepository()
-        val getAllData = personRepository.getAllData()
 
-        LazyColumn(
-
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            itemsIndexed(items = getAllData) { index, person ->
-
-                CustomItem(person = person)
-            }
-        }
-    }
-}

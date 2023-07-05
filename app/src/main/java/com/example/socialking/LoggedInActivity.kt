@@ -62,6 +62,12 @@ class LoggedInActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        loggedInBinding.chatButton.setOnClickListener{
+
+            val intent = Intent(this@LoggedInActivity,ChatActivity::class.java)
+            startActivity(intent)
+
+        }
 
 
 
