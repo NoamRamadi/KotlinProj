@@ -120,7 +120,7 @@ class ResultFromSearchActivity : ComponentActivity() {
         val categoryToSearch = intent.getStringExtra("categoryToSearch").toString()
         val contentToSearch = intent.getStringExtra("contentToSearch").toString()
 
-        if (nameToSearch.isNotEmpty()) {
+        if (!nameToSearch.equals("null")) {
             LazyColumn {
                 items(posts) { post ->
                     if (post.byName.equals(nameToSearch)&& (post.visible==true)) {
@@ -129,7 +129,7 @@ class ResultFromSearchActivity : ComponentActivity() {
                     }
                 }
             }
-        } else if (categoryToSearch.isNotEmpty())
+        } else if (!categoryToSearch.equals("null"))
             LazyColumn {
                 items(posts) { post ->
                     if (post.category.equals(categoryToSearch)&& (post.visible==true)) {
@@ -139,7 +139,7 @@ class ResultFromSearchActivity : ComponentActivity() {
                 }
             }
 
-        else if (contentToSearch.isNotEmpty())
+        else if (!contentToSearch.equals("null"))
             LazyColumn {
                 items(posts) { post ->
                     if (post.content.toString().contains(contentToSearch)&& (post.visible==true)) {

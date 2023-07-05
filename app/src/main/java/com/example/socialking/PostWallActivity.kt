@@ -139,10 +139,11 @@ class PostWallActivity : ComponentActivity() {
 
     @Composable
     fun CardItem(post: PostClass, onClick: (msg: String) -> Unit) {
+        val msg ="none"
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .padding(bottom = 16.dp).clickable { onClick(msg) },
             border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
         )
