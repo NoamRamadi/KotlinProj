@@ -44,7 +44,7 @@ class SelectedPostActivity : AppCompatActivity() {
             val newCategory = selectedPostBinding.editPostCategory.getText().toString()
             val newContent = selectedPostBinding.editPostContent.getText().toString()
 
-            if (!user.equals(byEmail)) {
+            if (!user.equals(byEmail)&& !user.equals("admin@admin.com")) {
                 Toast.makeText(applicationContext, "Not allowed", Toast.LENGTH_SHORT).show()
             } else {
                 val editedPost =
@@ -78,7 +78,7 @@ class SelectedPostActivity : AppCompatActivity() {
         }
         selectedPostBinding.deletePostButton.setOnClickListener {
 
-            if (!user.equals(byEmail)) {
+            if (!user.equals(byEmail) && !user.equals("admin@admin.com")) {
                 Toast.makeText(applicationContext, "Not allowed", Toast.LENGTH_SHORT).show()
             } else {
                 val deletedPost =
