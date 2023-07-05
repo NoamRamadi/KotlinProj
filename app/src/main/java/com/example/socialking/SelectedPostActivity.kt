@@ -1,6 +1,7 @@
 package com.example.socialking
 
 import PostClass
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -43,12 +44,15 @@ class SelectedPostActivity : AppCompatActivity() {
             val newCategory = selectedPostBinding.editPostCategory.getText().toString()
             val newContent = selectedPostBinding.editPostContent.getText().toString()
 
+
             val editedPost = PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
             dbRef.child(postid.toString()).setValue(editedPost).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(applicationContext,"Your post has been Updated",Toast.LENGTH_SHORT).show()
-                    finish()
                     selectedPostBinding.editPostButton.isClickable = true
+                    var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(
                         applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT
@@ -62,8 +66,10 @@ class SelectedPostActivity : AppCompatActivity() {
             dbRef.child(postid.toString()).setValue(deletedPost).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(applicationContext,"Your post has been Deleted",Toast.LENGTH_SHORT).show()
-                    finish()
                     selectedPostBinding.editPostButton.isClickable = true
+                    var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(
                         applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT

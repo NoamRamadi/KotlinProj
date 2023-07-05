@@ -5,6 +5,7 @@ import PostClass
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.socialking.Counter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -26,8 +27,10 @@ class MainViewModel : ViewModel(){
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (DataSnap in snapshot.children){
                     val postItem = DataSnap.getValue(PostClass::class.java)
-                    if(postItem != null)
+                    if(postItem != null) {
                         tempList.add(postItem)
+                        Counter.count()
+                    }
                 }
                 response.value=DataState.Success(tempList)
 

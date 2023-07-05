@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity,LoggedInActivity::class.java)
                 intent.putExtra("email",userEmail)
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(applicationContext,task.exception?.localizedMessage,Toast.LENGTH_SHORT).show()
 

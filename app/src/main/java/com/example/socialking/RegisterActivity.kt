@@ -1,6 +1,7 @@
 package com.example.socialking
 
 import UserClass
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -61,8 +62,10 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                finish()
                 registerBinding.buttonRegisterApply.isClickable = true
+                val intent = Intent(this@RegisterActivity,LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(
                     applicationContext,task.exception?.localizedMessage,Toast.LENGTH_SHORT).show()

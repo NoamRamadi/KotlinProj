@@ -76,7 +76,7 @@ class LoggedInActivity : AppCompatActivity() {
             if (it.exists()) {
                 discoveredName= it.child("name").value.toString()
             } else {
-                Toast.makeText(this, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
             Toast.makeText(this, "Failed to read data", Toast.LENGTH_SHORT).show()

@@ -66,7 +66,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:layout_weight="0.5"
-                android:text="Edit"
+                android:text="Update Post"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />

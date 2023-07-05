@@ -1,6 +1,7 @@
 package com.example.socialking
 
 import PostClass
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -38,6 +39,10 @@ class AddPostActivity : AppCompatActivity() {
             publishPost(byEmail,byName,title,category,content,visible)
 
             }
+        addPostBinding.goBackToLoggedIn.setOnClickListener {
+            var intent = Intent(this@AddPostActivity,LoggedInActivity::class.java)
+            startActivity(intent)
+        }
 
 
 
@@ -55,6 +60,8 @@ class AddPostActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(applicationContext,"Your post has been published",Toast.LENGTH_SHORT).show()
                     Counter.count()
+                    var intent = Intent(this@AddPostActivity,LoggedInActivity::class.java)
+                    startActivity(intent)
                     finish()
                     addPostBinding.publishPostButton.isClickable = true
                 } else {

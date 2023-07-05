@@ -29,23 +29,45 @@ class PostWallActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             SocialKingTheme {
-                //val personRepository = PersonRepository()
-                //val getAllData = personRepository.getAllData()
+                Column(modifier = Modifier.fillMaxWidth()) {
 
+                    Column(modifier = Modifier.fillMaxWidth())
+                    {
+                        TopAppBar(
+                            title = {
+                                Text(text = "User Posts")
+                            },
 
-                Column {
-                    TopAppBar(
-                        title = {
-                            Text(text = "User Posts")
-                        },
-                    )
-                    SetData(viewModel)
+                            )
+                        SetData(viewModel)
+                    }
+                    Column {
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        {
+                            Button(
+                                onClick = {
+                                    val intent =
+                                        Intent(this@PostWallActivity, LoggedInActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }, modifier = Modifier.padding(horizontal = 8.dp)
+                            )
+                            {
+                                Text(text = "Back to Login page")
+                            }
+                        }
+
+                    }
                 }
             }
         }
     }
+
 
     @Composable
     fun SetData(viewModel: MainViewModel) {
@@ -117,12 +139,10 @@ class PostWallActivity : ComponentActivity() {
 
     @Composable
     fun CardItem(post: PostClass, onClick: (msg: String) -> Unit) {
-        val msg = "here is click"
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .clickable { onClick(msg) },
+                .padding(bottom = 16.dp),
             border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
         )
@@ -143,26 +163,31 @@ class PostWallActivity : ComponentActivity() {
                     text = post.content.toString(),
                     modifier = Modifier.fillMaxWidth()
                 )
+
+
             }
 
         }
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        SocialKingTheme {
-            val personRepository = PersonRepository()
-            val getAllData = personRepository.getAllData()
 
-            LazyColumn(
+}
 
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                itemsIndexed(items = getAllData) { index, person ->
 
-                    CustomItem(person = person)
-                }
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    SocialKingTheme {
+        val personRepository = PersonRepository()
+        val getAllData = personRepository.getAllData()
+
+        LazyColumn(
+
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            itemsIndexed(items = getAllData) { index, person ->
+
+                CustomItem(person = person)
             }
         }
     }
