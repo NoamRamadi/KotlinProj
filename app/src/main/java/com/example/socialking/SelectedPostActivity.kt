@@ -28,7 +28,7 @@ class SelectedPostActivity : AppCompatActivity() {
         val title = intent.getStringExtra("title").toString()
         val category = intent.getStringExtra("category").toString()
         val postid = intent.getStringExtra("id").toString()
-
+        val user = intent.getStringExtra("user").toString()
 
         val db = Firebase.database
         val dbRef = db.getReference("posts")
@@ -45,12 +45,17 @@ class SelectedPostActivity : AppCompatActivity() {
             val newContent = selectedPostBinding.editPostContent.getText().toString()
 
 
-            val editedPost = PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
+            val editedPost =
+                PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
             dbRef.child(postid.toString()).setValue(editedPost).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(applicationContext,"Your post has been Updated",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Your post has been Updated",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     selectedPostBinding.editPostButton.isClickable = true
-                    var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
+                    var intent = Intent(this@SelectedPostActivity, PostWallActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
@@ -62,28 +67,42 @@ class SelectedPostActivity : AppCompatActivity() {
             }
         }
         selectedPostBinding.backToPostWall.setOnClickListener {
-            var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
+            var intent = Intent(this@SelectedPostActivity, PostWallActivity::class.java)
+            intent.putExtra("email", user)
             startActivity(intent)
             finish()
         }
         selectedPostBinding.deletePostButton.setOnClickListener {
-            val deletedPost = PostClass(byEmail, byName, title, category, content, false, postid)
-            dbRef.child(postid.toString()).setValue(deletedPost).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(applicationContext,"Your post has been Deleted",Toast.LENGTH_SHORT).show()
-                    selectedPostBinding.editPostButton.isClickable = true
-                    var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(
-                        applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT
-                    ).show()
+
+            if (!user.equals(byEmail)) {
+                Toast.makeText(applicationContext, "Not allowed", Toast.LENGTH_SHORT).show()
+            } else {
+                val deletedPost =
+                    PostClass(byEmail, byName, title, category, content, false, postid)
+                dbRef.child(postid.toString()).setValue(deletedPost).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Your post has been Deleted",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        selectedPostBinding.editPostButton.isClickable = true
+                        var intent = Intent(this@SelectedPostActivity, PostWallActivity::class.java)
+                        intent.putExtra("email", user)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "Your post has been Deleted",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                 }
 
             }
 
         }
-
     }
 }

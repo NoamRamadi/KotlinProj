@@ -29,7 +29,8 @@ class PostWallActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val intentRecived = intent
+        val user= intentRecived.getStringExtra("email").toString()
         setContent {
             SocialKingTheme {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -42,7 +43,7 @@ class PostWallActivity : ComponentActivity() {
                             },
 
                             )
-                        SetData(viewModel)
+                        SetData(viewModel, user)
                     }
                     Column {
                         Row(
@@ -70,7 +71,7 @@ class PostWallActivity : ComponentActivity() {
 
 
     @Composable
-    fun SetData(viewModel: MainViewModel) {
+    fun SetData(viewModel: MainViewModel,user : String) {
         when (val result = viewModel.response.value) {
             is DataState.Loading -> {
                 Box(
@@ -82,7 +83,7 @@ class PostWallActivity : ComponentActivity() {
 
             }
             is DataState.Success -> {
-                ShowLazyList(result.data)
+                ShowLazyList(result.data,user)
 
             }
             is DataState.Failure -> {
@@ -113,7 +114,7 @@ class PostWallActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ShowLazyList(posts: MutableList<PostClass>) {
+    fun ShowLazyList(posts: MutableList<PostClass>,user:String) {
         val intent = Intent(this, SelectedPostActivity::class.java)
         val selectedPostContent: String = ""
         val selectedPostTitle: String = ""
@@ -128,6 +129,7 @@ class PostWallActivity : ComponentActivity() {
                         intent.putExtra("title", post.title)
                         intent.putExtra("category", post.category)
                         intent.putExtra("id", post.postid)
+                        intent.putExtra("user", user)
                         startActivity(intent)
                     }
                 }
@@ -143,7 +145,8 @@ class PostWallActivity : ComponentActivity() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp).clickable { onClick(msg) },
+                .padding(bottom = 16.dp)
+                .clickable { onClick(msg) },
             border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
         )

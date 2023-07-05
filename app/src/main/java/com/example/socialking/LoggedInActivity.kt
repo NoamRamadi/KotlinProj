@@ -34,8 +34,8 @@ class LoggedInActivity : AppCompatActivity() {
 
 
         val intent = intent
-        val emailReceived= intent.getStringExtra("email")
-        collectNameByEmail(emailReceived.toString())
+        val emailReceived= intent.getStringExtra("email").toString()
+        collectNameByEmail(emailReceived)
 
 
 
@@ -59,6 +59,7 @@ class LoggedInActivity : AppCompatActivity() {
         loggedInBinding.PostWallButtonLoggedInAct.setOnClickListener{
 
             val intent = Intent(this@LoggedInActivity,PostWallActivity::class.java)
+            intent.putExtra("email",emailReceived)
             startActivity(intent)
 
         }
