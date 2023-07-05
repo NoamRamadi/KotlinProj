@@ -61,6 +61,11 @@ class SelectedPostActivity : AppCompatActivity() {
 
             }
         }
+        selectedPostBinding.backToPostWall.setOnClickListener {
+            var intent = Intent(this@SelectedPostActivity,PostWallActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         selectedPostBinding.deletePostButton.setOnClickListener {
             val deletedPost = PostClass(byEmail, byName, title, category, content, false, postid)
             dbRef.child(postid.toString()).setValue(deletedPost).addOnCompleteListener { task ->

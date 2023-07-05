@@ -57,25 +57,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backToPostWall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:layout_weight="0.3"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/editPostButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:text="Update Post"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/deletePostButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:text="Delete"
                 android:textColor="@color/white"
                 android:textSize="24sp"
