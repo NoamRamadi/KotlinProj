@@ -44,26 +44,30 @@ class SelectedPostActivity : AppCompatActivity() {
             val newCategory = selectedPostBinding.editPostCategory.getText().toString()
             val newContent = selectedPostBinding.editPostContent.getText().toString()
 
+            if (!user.equals(byEmail)) {
+                Toast.makeText(applicationContext, "Not allowed", Toast.LENGTH_SHORT).show()
+            } else {
+                val editedPost =
+                    PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
+                dbRef.child(postid.toString()).setValue(editedPost).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Your post has been Updated",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        selectedPostBinding.editPostButton.isClickable = true
+                        var intent = Intent(this@SelectedPostActivity, PostWallActivity::class.java)
+                        intent.putExtra("email", user)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
-            val editedPost =
-                PostClass(byEmail, byName, newTitle, newCategory, newContent, true, postid)
-            dbRef.child(postid.toString()).setValue(editedPost).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Your post has been Updated",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    selectedPostBinding.editPostButton.isClickable = true
-                    var intent = Intent(this@SelectedPostActivity, PostWallActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(
-                        applicationContext, task.exception?.localizedMessage, Toast.LENGTH_SHORT
-                    ).show()
                 }
-
             }
         }
         selectedPostBinding.backToPostWall.setOnClickListener {

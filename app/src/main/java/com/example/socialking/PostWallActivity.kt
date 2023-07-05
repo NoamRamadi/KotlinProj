@@ -54,6 +54,7 @@ class PostWallActivity : ComponentActivity() {
                                 onClick = {
                                     val intent =
                                         Intent(this@PostWallActivity, LoggedInActivity::class.java)
+                                    intent.putExtra("email",user)
                                     startActivity(intent)
                                     finish()
                                 }, modifier = Modifier.padding(horizontal = 8.dp)
