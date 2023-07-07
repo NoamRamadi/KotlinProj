@@ -57,7 +57,6 @@ class ChatActivity : AppCompatActivity() {
 
     private fun displayMessage(message: String) {
         chatBinding.messageView.append("$message\n")
-        //chatView.append("$message\n")
     }
 
 

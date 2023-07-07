@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,91 +21,77 @@
 
             <EditText
                 android:id="@+id/editPostTitle"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:backgroundTint="#FFFFFF"
                 android:ems="10"
                 android:hint="Title"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/editPostCategory"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:backgroundTint="#FFFFFF"
                 android:ems="10"
                 android:hint="Category"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/editPostContent"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_margin="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:backgroundTint="#FFFFFF"
                 android:ems="10"
                 android:hint="Content"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/backToPostWall"
+                style="@style/SmallButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button_background"
-                android:text="Back"
-
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/editPostButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button_background"
-                android:text="Update"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/deletePostButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button_background"
-                android:elevation="4dp"
-                android:paddingStart="16dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="12dp"
-                android:stateListAnimator="@null"
-                android:text="Delete"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Back" />
+
+            <Button
+                android:id="@+id/editPostButton"
+                style="@style/SmallButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:text="Update" />
+
+            <Button
+                android:id="@+id/deletePostButton"
+                style="@style/SmallButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:text="Delete" />
 
         </LinearLayout>
     </LinearLayout>

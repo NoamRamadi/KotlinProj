@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Define your font family -->
+    </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Other theme attributes -->
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <!-- Define text appearance -->
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowActivityTransitions">true</item>
+    <!-- Define styles for your buttons -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/backgroundColor</item>
+        <item name="android:background">@drawable/rounded_button_background</item>
+        <!-- Other button customizations -->
+    </style>
+
+    <style name="SmallButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">14sp</item>
+        <!-- Add other customizations as needed -->
     </style>
 </resources>
-
 

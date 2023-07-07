@@ -4,121 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="0.95"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="0.8"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editTextSearchName"
-            android:layout_width="wrap_content"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
-            android:layout_weight="0.6"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.7"
             android:ems="10"
-            android:hint="Write a Name"
-            android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:hint="Name"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchNameButton"
-            android:layout_width="wrap_content"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.4"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="0.3"
             android:text="Search By Name" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="0.8"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editTextSearchContent"
-            android:layout_width="wrap_content"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
-            android:layout_weight="0.6"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.7"
             android:ems="10"
-            android:hint="Write content to search for"
-            android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:hint="Content"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchByContent"
-            android:layout_width="wrap_content"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.4"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="0.3"
             android:text="Search By Content" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="0.8"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editTextSearchCategory"
-            android:layout_width="wrap_content"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
-            android:layout_weight="0.6"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.7"
             android:ems="10"
-            android:hint="Write a Category"
-            android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:hint="Category"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchCategoryButton"
-            android:layout_width="wrap_content"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.4"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="0.3"
             android:text="Search By Category" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="0.95"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonBackToLoggedInFromSearch"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="Back"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text="Back" />
+
     </LinearLayout>
 </LinearLayout>

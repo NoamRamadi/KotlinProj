@@ -84,7 +84,7 @@
         android:layout_weight="0.8"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonRegisterApply"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -92,6 +92,7 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:hint="Apply Register"
+            android:background="@drawable/rounded_button_background"
             android:textStyle="bold" />
     </LinearLayout>
 
