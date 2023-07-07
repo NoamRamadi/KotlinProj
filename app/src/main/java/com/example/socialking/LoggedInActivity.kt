@@ -1,8 +1,11 @@
 package com.example.socialking
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.Explode
+import android.view.Window
 import android.widget.Toast
 import com.example.socialking.databinding.ActivityLoggedInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +23,12 @@ class LoggedInActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        with(window){
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            exitTransition = Explode()
+        }
+
         super.onCreate(savedInstanceState)
 
 

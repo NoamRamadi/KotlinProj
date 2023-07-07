@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,60 +22,63 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.socialking.repository.PersonRepository
-
 import com.example.socialking.ui.theme.SocialKingTheme
 import com.example.socialking.viewmodels.MainViewModel
 
-
 class PostWallActivity : ComponentActivity() {
-    val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intentRecived = intent
-        val user= intentRecived.getStringExtra("email").toString()
+        val user = intentRecived.getStringExtra("email").toString()
         setContent {
             SocialKingTheme {
-                Column(modifier = Modifier.fillMaxWidth()) {
-
-                    Column(modifier = Modifier.fillMaxWidth())
-                    {
+                Scaffold(
+                    topBar = {
                         TopAppBar(
                             title = {
                                 Text(text = "User Posts")
                             },
-
-                            )
-                        SetData(viewModel, user)
-                    }
-                    Column {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
+                            backgroundColor = MaterialTheme.colors.primary,
+                            contentColor = Color.White
                         )
-                        {
-                            Button(
+                    },
+                    content = {
+                        SetData(viewModel, user)
+                    },
+                    bottomBar = {
+                        BottomAppBar(
+                            backgroundColor = MaterialTheme.colors.primary,
+                            contentColor = Color.White
+                        ) {
+                            IconButton(
                                 onClick = {
                                     val intent =
                                         Intent(this@PostWallActivity, LoggedInActivity::class.java)
-                                    intent.putExtra("email",user)
+                                    intent.putExtra("email", user)
                                     startActivity(intent)
                                     finish()
-                                }, modifier = Modifier.padding(horizontal = 8.dp)
-                            )
-                            {
-                                Text(text = "Back to Login page")
+                                },
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = Color.White
+                                )
                             }
                         }
-
                     }
-                }
+                )
             }
         }
     }
 
-
     @Composable
-    fun SetData(viewModel: MainViewModel,user : String) {
-        when (val result = viewModel.response.value) {
+    fun SetData(viewModel: MainViewModel, user: String) {
+        val response = viewModel.response.value
+        when (response) {
             is DataState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -81,11 +86,9 @@ class PostWallActivity : ComponentActivity() {
                 ) {
                     CircularProgressIndicator()
                 }
-
             }
             is DataState.Success -> {
-                ShowLazyList(result.data,user)
-
+                ShowLazyList(response.data, user)
             }
             is DataState.Failure -> {
                 Box(
@@ -93,12 +96,11 @@ class PostWallActivity : ComponentActivity() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = result.message,
+                        text = response.message,
                         fontSize = MaterialTheme.typography.h5.fontSize,
                     )
                 }
             }
-
             else -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -111,15 +113,11 @@ class PostWallActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 
     @Composable
-    fun ShowLazyList(posts: MutableList<PostClass>,user:String) {
+    fun ShowLazyList(posts: MutableList<PostClass>, user: String) {
         val intent = Intent(this, SelectedPostActivity::class.java)
-        val selectedPostContent: String = ""
-        val selectedPostTitle: String = ""
-        val selectedPostCategory: String = ""
         LazyColumn {
             items(posts) { post ->
                 if (post.visible == true) {
@@ -136,47 +134,47 @@ class PostWallActivity : ComponentActivity() {
                 }
             }
         }
-
     }
-
 
     @Composable
     fun CardItem(post: PostClass, onClick: (msg: String) -> Unit) {
-        val msg ="none"
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
-                .clickable { onClick(msg) },
+                .clickable { onClick("as") },
             border = BorderStroke(2.dp, Color.Black),
             elevation = 4.dp
-        )
-        {
+        ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Text(text = post.byName.toString(), modifier = Modifier.weight(1f))
-                    Text(text = post.category.toString())
+                    Text(
+                        text = post.byName.toString(),
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.subtitle1,
+                        color = MaterialTheme.colors.onSurface
+                    )
+                    Text(
+                        text = post.category.toString(),
+                        style = MaterialTheme.typography.subtitle1,
+                        color = MaterialTheme.colors.onSurface
+                    )
                 }
                 Text(
                     text = post.title.toString(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp),
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.h6,
+                    color = MaterialTheme.colors.onSurface
                 )
                 Text(
                     text = post.content.toString(),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface
                 )
-
-
             }
-
         }
     }
-
-
 }
-
-
-

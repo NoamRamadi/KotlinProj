@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@android:color/transparent"
     android:orientation="vertical"
 >
 
@@ -59,10 +59,11 @@
         android:layout_weight="0.6"
         android:orientation="vertical">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonHomeLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/rounded_button_background"
             android:layout_margin="15dp"
             android:layout_weight="0.9"
             android:hint="Login"
@@ -70,11 +71,12 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonHomeRegister"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
+            android:background="@drawable/rounded_button_background"
             android:layout_weight="0.9"
             android:hint="Register"
             android:textColor="@color/white"

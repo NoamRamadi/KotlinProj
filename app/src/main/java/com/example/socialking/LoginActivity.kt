@@ -3,9 +3,11 @@ package com.example.socialking
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.Explode
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import com.example.socialking.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -46,7 +48,12 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Welcome to Social King",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@LoginActivity,LoggedInActivity::class.java)
                 intent.putExtra("email",userEmail)
-                startActivity(intent)
+                val option = ActivityOptionsCompat.makeSceneTransitionAnimation(this,loginBinding.buttonHomeLogin, "loginToLoggedin")
+
+                val explode = Explode()
+                window.enterTransition = explode
+
+                startActivity(intent, option.toBundle())
                 finish()
             } else {
                 Toast.makeText(applicationContext,task.exception?.localizedMessage,Toast.LENGTH_SHORT).show()

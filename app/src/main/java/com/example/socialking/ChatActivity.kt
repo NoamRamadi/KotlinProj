@@ -1,18 +1,23 @@
 package com.example.socialking
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.socialking.databinding.ActivityChatBinding
+import com.example.socialking.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
+import android.os.AsyncTask
+
+lateinit var chatBinding: ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var messageView: TextView
+    private lateinit var chatView: TextView
     private lateinit var messageInput: EditText
     private lateinit var sendButton: Button
 
@@ -22,75 +27,80 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
 
-        messageView = findViewById(R.id.messageView)
-        messageInput = findViewById(R.id.messageInput)
-        sendButton = findViewById(R.id.sendButton)
+        chatBinding = ActivityChatBinding.inflate(layoutInflater)
+        val view = chatBinding.root
+        setContentView(view)
 
-        connectToServer()
+        // Initialize UI components
+        //chatView = findViewById(R.id.chatView)
+        //messageInput = findViewById(R.id.messageInput)
+        //sendButton = findViewById(R.id.sendButton)
 
-        sendButton.setOnClickListener {
-            val message = messageInput.text.toString().trim()
+        // Set up socket connection in a background thread
+        ConnectTask().execute()
+
+        // Send button click listener
+        chatBinding.sendButton.setOnClickListener {
+            val message = chatBinding.messageInput.text.toString().trim()
             if (message.isNotEmpty()) {
-                sendMessageToServer(message)
-                messageInput.text.clear()
+                SendMessageTask().execute(message)
+                chatBinding.messageInput.text.clear()
             }
         }
+    }
+
+    private fun displayMessage(message: String) {
+        chatBinding.messageView.append("$message\n")
+        //chatView.append("$message\n")
+    }
+
+    private fun sendMessage(message: String) {
+        writer.println(message)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        disconnectFromServer()
-    }
-
-    private fun connectToServer() {
-        Thread {
-            try {
-                // Replace SERVER_IP and SERVER_PORT with the appropriate values for your server
-                socket = Socket("localhost", 3000)
-
-                reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-                writer = PrintWriter(socket.getOutputStream(), true)
-
-                while (true) {
-                    val message = reader.readLine()
-                    if (message != null) {
-                        runOnUiThread {
-                            messageView.append("Server: $message\n")
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                try {
-                    reader.close()
-                    writer.close()
-                    socket.close()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }.start()
-    }
-
-    private fun sendMessageToServer(message: String) {
-        writer.println(message)
-        runOnUiThread {
-            messageView.append("You: $message\n")
-        }
-    }
-
-    private fun disconnectFromServer() {
+        // Close the socket connection when the activity is destroyed
         try {
-            reader.close()
-            writer.close()
             socket.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
+    private inner class ConnectTask : AsyncTask<Void, Void, Boolean>() {
+
+        override fun doInBackground(vararg params: Void?): Boolean {
+            try {
+                // Replace HOST and PORT with your server details
+                socket = Socket("192.168.136.137", 5000)
+                reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+                writer = PrintWriter(socket.getOutputStream(), true)
+
+                // Start a separate thread to receive messages
+                Thread {
+                    while (true) {
+                        val message = reader.readLine()
+                        runOnUiThread {
+                            displayMessage(message)
+                        }
+                    }
+                }.start()
+
+                return true
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return false
+            }
+        }
+    }
+
+    private inner class SendMessageTask : AsyncTask<String, Void, Unit>() {
+
+        override fun doInBackground(vararg params: String) {
+            val message = params[0]
+            writer.println(message)
+        }
+    }
 }
-
-
