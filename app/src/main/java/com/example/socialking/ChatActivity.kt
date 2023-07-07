@@ -1,4 +1,5 @@
 package com.example.socialking
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -18,9 +19,6 @@ lateinit var chatBinding: ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var chatView: TextView
-    private lateinit var messageInput: EditText
-    private lateinit var sendButton: Button
 
     private lateinit var socket: Socket
     private lateinit var reader: BufferedReader
@@ -32,11 +30,6 @@ class ChatActivity : AppCompatActivity() {
         chatBinding = ActivityChatBinding.inflate(layoutInflater)
         val view = chatBinding.root
         setContentView(view)
-
-        // Initialize UI components
-        //chatView = findViewById(R.id.chatView)
-        //messageInput = findViewById(R.id.messageInput)
-        //sendButton = findViewById(R.id.sendButton)
 
         // Set up socket connection in a background thread
         ConnectTask().execute()
@@ -50,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         chatBinding.backButton.setOnClickListener {
-            val intent = Intent(this@ChatActivity,LoggedInActivity::class.java)
+            val intent = Intent(this@ChatActivity, LoggedInActivity::class.java)
             startActivity(intent)
         }
     }
@@ -100,7 +93,9 @@ class ChatActivity : AppCompatActivity() {
     private inner class SendMessageTask : AsyncTask<String, Void, Unit>() {
 
         override fun doInBackground(vararg params: String) {
-            val message = params[0]
+            val intent = intent
+            val Username = intent.getStringExtra("nameChat").toString()
+            val message = "\n" + Username + ":\n" + params[0]
             writer.println(message)
         }
     }
