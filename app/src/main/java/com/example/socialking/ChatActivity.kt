@@ -1,4 +1,5 @@
 package com.example.socialking
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -47,6 +48,10 @@ class ChatActivity : AppCompatActivity() {
                 SendMessageTask().execute(message)
                 chatBinding.messageInput.text.clear()
             }
+        }
+        chatBinding.backButton.setOnClickListener {
+            val intent = Intent(this@ChatActivity,LoggedInActivity::class.java)
+            startActivity(intent)
         }
     }
 
