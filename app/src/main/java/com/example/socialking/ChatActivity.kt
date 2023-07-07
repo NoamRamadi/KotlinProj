@@ -55,9 +55,6 @@ class ChatActivity : AppCompatActivity() {
         //chatView.append("$message\n")
     }
 
-    private fun sendMessage(message: String) {
-        writer.println(message)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
