@@ -9,6 +9,8 @@ import com.example.socialking.databinding.ActivityMainBinding
 object Counter{
     var counter = 0
     fun count(): Int = counter++
+    var chatcounter = 0
+    fun chatCount(): Int = chatcounter++
 }
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {

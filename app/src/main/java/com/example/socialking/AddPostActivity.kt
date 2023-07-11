@@ -41,6 +41,7 @@ class AddPostActivity : AppCompatActivity() {
             }
         addPostBinding.goBackToLoggedIn.setOnClickListener {
             var intent = Intent(this@AddPostActivity,LoggedInActivity::class.java)
+            intent.putExtra("name",byName)
             startActivity(intent)
         }
 

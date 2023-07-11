@@ -32,6 +32,7 @@ class PostWallActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val intentRecived = intent
         val user = intentRecived.getStringExtra("email").toString()
+        val name= intentRecived.getStringExtra("name").toString()
         setContent {
             SocialKingTheme {
                 Scaffold(
@@ -57,6 +58,7 @@ class PostWallActivity : ComponentActivity() {
                                     val intent =
                                         Intent(this@PostWallActivity, LoggedInActivity::class.java)
                                     intent.putExtra("email", user)
+                                    intent.putExtra("name", name)
                                     startActivity(intent)
                                     finish()
                                 },

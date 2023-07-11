@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 
 lateinit var loggedInBinding: ActivityLoggedInBinding
-lateinit var discoveredName: String
+var discoveredName: String="placeholder"
 
 class LoggedInActivity : AppCompatActivity() {
 
@@ -41,10 +41,17 @@ class LoggedInActivity : AppCompatActivity() {
 
 
 
+        //val flag: String = "1"
+
+
 
         val intent = intent
         val emailReceived= intent.getStringExtra("email").toString()
+        //discoveredName="null"
         collectNameByEmail(emailReceived)
+
+
+
 
 
 
@@ -59,6 +66,11 @@ class LoggedInActivity : AppCompatActivity() {
         loggedInBinding.addPostButton.setOnClickListener{
 
             val intent = Intent(this@LoggedInActivity, AddPostActivity::class.java)
+            //collectNameByEmail(emailReceived)
+            if(discoveredName.equals("null"))
+                discoveredName= intent.getStringExtra("name").toString()
+
+
             intent.putExtra("email",emailReceived)
             intent.putExtra("name", discoveredName)
             startActivity(intent)
@@ -69,14 +81,30 @@ class LoggedInActivity : AppCompatActivity() {
 
             val intent = Intent(this@LoggedInActivity,PostWallActivity::class.java)
             intent.putExtra("email",emailReceived)
+            intent.putExtra("name", discoveredName)
             startActivity(intent)
 
         }
         loggedInBinding.chatButton.setOnClickListener{
+            val intent = Intent(this@LoggedInActivity,ChatComposeActivity::class.java)
 
-            val intent = Intent(this@LoggedInActivity,ChatActivity::class.java)
-            intent.putExtra("nameChat", discoveredName)
+//            var flag = intent.getStringExtra("flag").toString()
+//            if(flag.equals("null")) {
+//                flag = "1"
+//               // collectNameByEmail(emailReceived)
+//            }
+//            else if(flag.equals("0"))
+//                discoveredName=intent.getStringExtra("namechat").toString()
+
+            if(discoveredName.equals("null"))
+                discoveredName= intent.getStringExtra("name").toString()
+
+
+            intent.putExtra("name", discoveredName)
+            intent.putExtra("email",emailReceived)
+           // intent.putExtra("flag", flag)
             startActivity(intent)
+            finish()
 
         }
         loggedInBinding.searchButtonLoggedIn.setOnClickListener{
@@ -90,7 +118,6 @@ class LoggedInActivity : AppCompatActivity() {
 
     }
 
-    // Need to add a fun for reading DB and creating LAZYCOLUMN out of it
 
     fun collectNameByEmail(email: String){
         val modifiedEmail: String = email.replace(".", "")

@@ -69,5 +69,12 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
+    // Compose UI
+    implementation 'androidx.compose.ui:ui:1.0.0'
+    // Compose Material Design
+    implementation 'androidx.compose.material:material:1.0.0'
+    // Compose ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
+
 
 }
