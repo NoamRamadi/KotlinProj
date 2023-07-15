@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -37,6 +38,7 @@
             android:ems="10"
             android:hint="Name"
             android:textColor="@color/textColorPrimary"
+            android:textColorHint="#60000000"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -70,6 +72,7 @@
             android:ems="10"
             android:hint="Content"
             android:textColor="@color/textColorPrimary"
+            android:textColorHint="#60000000"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -103,6 +106,7 @@
             android:ems="10"
             android:hint="Category"
             android:textColor="@color/textColorPrimary"
+            android:textColorHint="#60000000"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton

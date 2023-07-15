@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +26,8 @@
                 android:layout_weight="1.5"
                 android:ems="10"
                 android:hint="Title"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textColorHint="#60000000"
                 android:textSize="34sp" />
 
             <EditText
@@ -38,7 +38,8 @@
                 android:layout_weight="1.5"
                 android:ems="10"
                 android:hint="Category"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textColorHint="#60000000"
                 android:textSize="34sp" />
 
             <EditText
@@ -49,7 +50,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textColorHint="#60000000"
                 android:textSize="34sp" />
         </LinearLayout>
 
@@ -69,6 +71,7 @@
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/publishPostButton"
                 android:layout_width="match_parent"

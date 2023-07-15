@@ -30,39 +30,43 @@ class ResultFromSearchActivity : ComponentActivity() {
 
         setContent {
             SocialKingTheme {
-                Column(modifier = Modifier.fillMaxWidth()) {
 
-                    Column(modifier = Modifier.fillMaxWidth())
-                    {
-                        TopAppBar(
-                            title = {
-                                Text(text = "User Posts")
-                            },
 
-                            )
-                        SetData(viewModel)
-                    }
-                    Column {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                Surface(color = Color(0xFFEEEEEF)) { // Set the background color here
+                    Column(modifier = Modifier.fillMaxWidth()) {
+
+                        Column(modifier = Modifier.fillMaxWidth())
                         {
-                            Button(
-                                onClick = {
-                                    val intent =
-                                        Intent(
-                                            this@ResultFromSearchActivity,
-                                            LoggedInActivity::class.java
-                                        )
-                                    startActivity(intent)
-                                    finish()
-                                }, modifier = Modifier.padding(horizontal = 8.dp)
+                            TopAppBar(
+                                title = {
+                                    Text(text = "User Posts")
+                                },
+
+                                )
+                            SetData(viewModel)
+                        }
+                        Column {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
                             )
                             {
-                                Text(text = "Back to Login page")
+                                Button(
+                                    onClick = {
+                                        val intent =
+                                            Intent(
+                                                this@ResultFromSearchActivity,
+                                                LoggedInActivity::class.java
+                                            )
+                                        startActivity(intent)
+                                        finish()
+                                    }, modifier = Modifier.padding(horizontal = 8.dp)
+                                )
+                                {
+                                    Text(text = "Back to Login page")
+                                }
                             }
-                        }
 
+                        }
                     }
                 }
             }
@@ -123,7 +127,7 @@ class ResultFromSearchActivity : ComponentActivity() {
         if (!nameToSearch.equals("null")) {
             LazyColumn {
                 items(posts) { post ->
-                    if (post.byName.equals(nameToSearch)&& (post.visible==true)) {
+                    if (post.byName.equals(nameToSearch) && (post.visible == true)) {
                         CardItem(post = post) {
                         }
                     }
@@ -132,17 +136,18 @@ class ResultFromSearchActivity : ComponentActivity() {
         } else if (!categoryToSearch.equals("null"))
             LazyColumn {
                 items(posts) { post ->
-                    if (post.category.equals(categoryToSearch)&& (post.visible==true)) {
+                    if (post.category.equals(categoryToSearch) && (post.visible == true)) {
                         CardItem(post = post) {
                         }
                     }
                 }
             }
-
         else if (!contentToSearch.equals("null"))
             LazyColumn {
                 items(posts) { post ->
-                    if (post.content.toString().contains(contentToSearch)&& (post.visible==true)) {
+                    if (post.content.toString()
+                            .contains(contentToSearch) && (post.visible == true)
+                    ) {
                         CardItem(post = post) {
                         }
                     }

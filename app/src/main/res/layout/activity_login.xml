@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+
     android:orientation="vertical"
 >
 
@@ -37,6 +37,7 @@
             android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="Email"
+            android:textColorHint="#60000000"
             android:inputType="textEmailAddress"
             android:textSize="34sp" />
 
@@ -49,6 +50,7 @@
             android:backgroundTint="@color/black"
             android:ems="10"
             android:hint="Password"
+            android:textColorHint="#60000000"
             android:inputType="textPassword"
             android:textSize="34sp" />
     </LinearLayout>

@@ -3,4 +3,5 @@
     <string name="title_activity_logged_in_compose">LoggedInComposeActivity</string>
     <string name="title_activity_result_from_search">ResultFromSearchActivity</string>
     <string name="title_activity_chat_compose">ChatComposeActivity</string>
+    <string name="title_activity_user_list">UserListActivity</string>
 </resources>
