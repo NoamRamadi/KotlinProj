@@ -33,6 +33,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 class ChatComposeActivity : ComponentActivity() {
 
@@ -42,6 +47,9 @@ class ChatComposeActivity : ComponentActivity() {
     private lateinit var executor: Executor
     private val chatMessages = mutableStateListOf<String>()
     private lateinit var chatRef: DatabaseReference
+
+    private val CHANNEL_ID = "CHAT_CONNECTION_CHANNEL"
+    private val NOTIFICATION_ID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +67,8 @@ class ChatComposeActivity : ComponentActivity() {
         connect()
         fetchInitialChatMessages()
 
-
+        // Show a notification when the user connects to the server
+        showConnectionNotification()
     }
 
 
@@ -259,6 +268,28 @@ class ChatComposeActivity : ComponentActivity() {
                 // Handle the error here
             }
         })
+    }
+    private fun showConnectionNotification() {
+        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.your_image)
+            .setContentTitle("Server Connection")
+            .setContentText("Connected to the server")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        // Create a notification channel (required for Android 8.0 and above)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channelName = "Chat Connection"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, channelName, importance)
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(NOTIFICATION_ID, notificationBuilder.build())
+        }
     }
 }
 
