@@ -41,10 +41,6 @@ class LoggedInActivity : AppCompatActivity() {
 
 
 
-        //val flag: String = "1"
-
-
-
         val intent = intent
         val emailReceived= intent.getStringExtra("email").toString()
         //discoveredName="null"
@@ -88,13 +84,6 @@ class LoggedInActivity : AppCompatActivity() {
         loggedInBinding.chatButton.setOnClickListener{
             val intent = Intent(this@LoggedInActivity,ChatComposeActivity::class.java)
 
-//            var flag = intent.getStringExtra("flag").toString()
-//            if(flag.equals("null")) {
-//                flag = "1"
-//               // collectNameByEmail(emailReceived)
-//            }
-//            else if(flag.equals("0"))
-//                discoveredName=intent.getStringExtra("namechat").toString()
 
             if(discoveredName.equals("null"))
                 discoveredName= intent.getStringExtra("name").toString()

@@ -94,7 +94,7 @@ class ChatActivity : AppCompatActivity() {
         executor.execute {
             try {
                 // Replace HOST and PORT with your server details
-                socket = Socket("192.168.244.137", 5000)
+                socket = Socket("192.168.24.137", 5000)
                 reader = BufferedReader(InputStreamReader(socket.getInputStream()))
                 writer = PrintWriter(socket.getOutputStream(), true)
 
